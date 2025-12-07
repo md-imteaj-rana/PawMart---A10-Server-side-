@@ -29,10 +29,26 @@ async function run() {
     
     await client.connect();
 
+    const database = client.db('pawmartServices');
+
+    const pawmart_services = database.collection('services')
+
+    // post or save service to db
     app.post('/service', async(req, res) => {
 
       const data = req.body;
-      console.log(data)
+      const date = new Date();
+      data.createdAt = date;
+
+      const result = await pawmart_services.insertOne(data)
+
+      res.send(result)
+    })
+
+    // Get services from db 
+    app.get('/service', async(req, res) => {
+      const result = await pawmart_services.find().toArray();
+      res.send(result)
     })
     
     await client.db("admin").command({ ping: 1 });
