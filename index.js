@@ -59,6 +59,14 @@ async function run() {
       const result = await pawmart_services.findOne(query)
       res.send(result)
     })
+
+    // api for my services
+    app.get('/MyServices', async(req, res) =>{
+      const {email} = req.query
+      const query = {email: email}
+      const result = await pawmart_services.find(query).toArray()
+      res.send(result)
+    })
     
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
