@@ -7,6 +7,8 @@ const port = 3000;
 const app = express()
 app.use(cors());
 
+app.use(express.json())
+
 
 //Mongodb code 
 
@@ -24,13 +26,19 @@ const client = new MongoClient(uri, {
 
 async function run() {
   try {
-    // Connect the client to the server	(optional starting in v4.7)
+    
     await client.connect();
-    // Send a ping to confirm a successful connection
+
+    app.post('/service', async(req, res) => {
+
+      const data = req.body;
+      console.log(data)
+    })
+    
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
-    // Ensures that the client will close when you finish/error
+    
     // await client.close(); (we have to remove this line otherwise it will close the database automatically)
   }
 }
