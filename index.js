@@ -69,8 +69,17 @@ async function run() {
     })
 
     // api for get updated info
-    app.put('/update', async(req, res) =>{
+    app.put('/update/:id', async(req, res) =>{
       const data = req.body;
+      const id = req.params
+      const query = {_id: new ObjectId(id)}
+
+      const updateServices = {
+        $set: data
+      }
+
+      const result = await pawmart_services.updateOne(query, updateServices)
+      res.send(result)
     })
     
     await client.db("admin").command({ ping: 1 });
