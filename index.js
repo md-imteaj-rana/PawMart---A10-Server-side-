@@ -97,10 +97,16 @@ async function run() {
       res.send(result)
     })
 
-    // Orders 
+    // Orders to store in my db
     app.post('/orders', async(req, res) =>{
       const data = req.body
       const result = await orderCollections.insertOne(data)
+      res.send(result)
+    })
+
+    // getting order info to frontend
+    app.get('/orders', async(req, res) =>{
+      const result = await orderCollections.find().toArray()
       res.send(result)
     })
     
