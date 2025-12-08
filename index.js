@@ -32,6 +32,7 @@ async function run() {
     const database = client.db('pawmartServices');
 
     const pawmart_services = database.collection('services')
+    const orderCollections = database.collection('orders')
 
     // post or save service to db
     app.post('/service', async(req, res) => {
@@ -93,6 +94,13 @@ async function run() {
       const id = req.params
       const query = {_id: new ObjectId(id)}
       const result = await pawmart_services.deleteOne(query)
+      res.send(result)
+    })
+
+    // Orders 
+    app.post('/orders', async(req, res) =>{
+      const data = req.body
+      const result = await orderCollections.insertOne(data)
       res.send(result)
     })
     
