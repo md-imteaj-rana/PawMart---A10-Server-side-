@@ -47,7 +47,13 @@ async function run() {
 
     // Get services from db 
     app.get('/service', async(req, res) => {
-      const result = await pawmart_services.find().toArray();
+      const {category} = req.query;
+      const query = {}
+      if(category){
+        query.category = category
+        
+      }
+      const result = await pawmart_services.find(query).toArray();
       res.send(result)
     })
 
