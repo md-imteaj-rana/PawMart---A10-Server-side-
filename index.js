@@ -67,6 +67,11 @@ async function run() {
       const result = await pawmart_services.find(query).toArray()
       res.send(result)
     })
+
+    // api for get updated info
+    app.put('/update', async(req, res) =>{
+      const data = req.body;
+    })
     
     await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
