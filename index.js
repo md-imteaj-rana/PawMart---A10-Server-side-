@@ -13,7 +13,7 @@ app.use(express.json())
 //Mongodb code 
 
 
-const uri = "mongodb+srv://Pawmart-A10:imtepawmartA10@pawmarta10.t0jzost.mongodb.net/PawMartA10?retryWrites=true&w=majority&appName=PawMartA10";
+const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASS}@pawmarta10.t0jzost.mongodb.net/PawMartA10?retryWrites=true&w=majority&appName=PawMartA10`;
 
 // Create a MongoClient with a MongoClientOptions object to set the Stable API version
 const client = new MongoClient(uri, {
@@ -27,7 +27,7 @@ const client = new MongoClient(uri, {
 async function run() {
   try {
     
-    await client.connect();
+    //await client.connect();
 
     const database = client.db('pawmartServices');
 
@@ -110,7 +110,7 @@ async function run() {
       res.send(result)
     })
     
-    await client.db("admin").command({ ping: 1 });
+    //await client.db("admin").command({ ping: 1 });
     console.log("Pinged your deployment. You successfully connected to MongoDB!");
   } finally {
     
